@@ -1,63 +1,39 @@
 /* ============================================================
-   MarqueeStrip — Warm Organic Editorial
-   Horizontal scrolling text ticker between sections
-   Two rows — one cream-on-crimson, one crimson-on-cream
+   MarqueeStrip — Flavour name ticker
+   Transparent background — colour morph canvas bleeds through.
+   Two rows in opposite directions, crimson text on the canvas.
    ============================================================ */
 
 const ITEMS_TOP = [
-  "MANGO PASSION FRUIT",
-  "★",
-  "PISTACHIO CRUNCH",
-  "★",
-  "DARK CHOCOLATE",
-  "★",
-  "LAVENDER HONEY",
-  "★",
-  "RASPBERRY MOCHI",
-  "★",
-  "TOFFEE CARAMEL",
-  "★",
-  "LEMON CHEESECAKE",
-  "★",
-  "PLOMBIÈRE VANILLA",
-  "★",
+  "MANGO PASSION FRUIT", "·", "PISTACHIO CRUNCH", "·",
+  "DARK CHOCOLATE", "·", "LAVENDER HONEY", "·",
+  "RASPBERRY MOCHI", "·", "TOFFEE CARAMEL", "·",
+  "LEMON CHEESECAKE", "·", "PLOMBIÈRE VANILLA", "·",
 ];
 
 const ITEMS_BOTTOM = [
-  "HANDCRAFTED DAILY",
-  "·",
-  "NATURAL INGREDIENTS",
-  "·",
-  "SMALL BATCH",
-  "·",
-  "NO ARTIFICIAL FLAVOURS",
-  "·",
-  "SINGLE ORIGIN",
-  "·",
-  "COLD PRESSED",
-  "·",
-  "ALLERGEN LABELLED",
-  "·",
+  "HANDCRAFTED DAILY", "·", "NATURAL INGREDIENTS", "·",
+  "SMALL BATCH", "·", "NO ARTIFICIAL FLAVOURS", "·",
+  "SINGLE ORIGIN", "·", "COLD PRESSED", "·",
+  "MADE WITH INTENTION", "·",
 ];
 
 interface RowProps {
   items: string[];
   reverse?: boolean;
-  bg: string;
-  color: string;
   speed?: string;
 }
 
-function MarqueeRow({ items, reverse = false, bg, color, speed = "32s" }: RowProps) {
+function MarqueeRow({ items, reverse = false, speed = "32s" }: RowProps) {
   const doubled = [...items, ...items];
   return (
     <div
       style={{
-        background: bg,
         overflow: "hidden",
-        padding: "0.6rem 0",
-        borderTop: `1px solid rgba(140,26,26,0.12)`,
-        borderBottom: `1px solid rgba(140,26,26,0.12)`,
+        padding: "0.55rem 0",
+        borderTop: "1px solid rgba(140,26,26,0.14)",
+        borderBottom: "1px solid rgba(140,26,26,0.14)",
+        background: "transparent",
       }}
     >
       <div
@@ -71,10 +47,11 @@ function MarqueeRow({ items, reverse = false, bg, color, speed = "32s" }: RowPro
           <span
             key={i}
             style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(0.85rem, 1.5vw, 1.1rem)",
-              letterSpacing: "0.12em",
-              color,
+              fontFamily: item === "·" ? "var(--font-body)" : "var(--font-display)",
+              fontSize: item === "·" ? "0.6rem" : "clamp(0.85rem, 1.5vw, 1.1rem)",
+              letterSpacing: item === "·" ? "0" : "0.12em",
+              color: "var(--crimson)",
+              opacity: item === "·" ? 0.3 : 0.8,
               whiteSpace: "nowrap",
               padding: "0 1.2rem",
             }}
@@ -89,20 +66,9 @@ function MarqueeRow({ items, reverse = false, bg, color, speed = "32s" }: RowPro
 
 export default function MarqueeStrip() {
   return (
-    <div>
-      <MarqueeRow
-        items={ITEMS_TOP}
-        bg="var(--crimson)"
-        color="var(--cream)"
-        speed="36s"
-      />
-      <MarqueeRow
-        items={ITEMS_BOTTOM}
-        reverse
-        bg="var(--cream-dark)"
-        color="var(--crimson)"
-        speed="28s"
-      />
+    <div style={{ background: "transparent" }}>
+      <MarqueeRow items={ITEMS_TOP} speed="36s" />
+      <MarqueeRow items={ITEMS_BOTTOM} reverse speed="28s" />
     </div>
   );
 }

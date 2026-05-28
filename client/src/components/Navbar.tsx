@@ -2,34 +2,36 @@
    Navbar — Warm Organic Editorial design system
    Fixed top bar: logo left, outlined buttons right
    Right-side crimson menu drawer with oversized stacked links
-   Flavours button triggers the cinematic takeover sequence
+   Flavours button scrolls to the flavours shelf section
    ============================================================ */
 import { useState, useEffect } from "react";
 import { ShoppingBag, X, Menu } from "lucide-react";
 import { useMagneticButton } from "@/hooks/useMagneticButton";
-import { useFlavours } from "@/contexts/FlavoursContext";
-
 const NAV_LINKS = [
-  { label: "Home", href: "#home", takeover: false },
-  { label: "About Us", href: "#about", takeover: false },
-  { label: "Flavours", href: "#flavours", takeover: true },
-  { label: "Stockists", href: "#stockists", takeover: false },
-  { label: "FAQ", href: "#faq", takeover: false },
-  { label: "Contact", href: "#contact", takeover: false },
+  { label: "Home", href: "#home" },
+  { label: "About Us", href: "#about" },
+  { label: "Flavours", href: "#flavours" },
+  { label: "Partnership", href: "#partnership" },
+  { label: "Our Story", href: "#story" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartCount] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const { enterShowcase, phase } = useFlavours();
-
-  const cartRef = useMagneticButton<HTMLButtonElement>(0.3, 65);
-  const flavoursRef = useMagneticButton<HTMLButtonElement>(0.3, 65);
-  const menuRef = useMagneticButton<HTMLButtonElement>(0.3, 65);
+  const [onHero, setOnHero] = useState(true); // true = over teal hero
+  const cartRef = useMagneticButton<HTMLButtonElement>(0.72, 120);
+  const flavoursRef = useMagneticButton<HTMLButtonElement>(0.72, 120);
+  const menuRef = useMagneticButton<HTMLButtonElement>(0.72, 120);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
+    const handleScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      // Hero section is roughly one viewport tall
+      setOnHero(y < window.innerHeight * 0.85);
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -39,15 +41,15 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  const handleNavClick = (href: string, takeover: boolean) => {
+  const handleNavClick = (href: string) => {
     setMenuOpen(false);
-    if (takeover && phase === "idle") {
-      setTimeout(() => enterShowcase(), 320);
-      return;
-    }
     setTimeout(() => {
-      const el = document.querySelector(href);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+      const id = href.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
     }, 320);
   };
 
@@ -58,15 +60,19 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-6 md:px-10"
         style={{
           height: "64px",
-          background: scrolled ? "rgba(247,232,216,0.92)" : "transparent",
-          backdropFilter: scrolled ? "blur(8px)" : "none",
-          transition: "background 300ms, backdrop-filter 300ms",
+          background: scrolled
+            ? onHero
+              ? "rgba(20,58,50,0.82)"
+              : "rgba(247,232,216,0.92)"
+            : "transparent",
+          backdropFilter: scrolled ? "blur(10px)" : "none",
+          transition: "background 400ms, backdrop-filter 400ms",
         }}
       >
         {/* Logo */}
         <a
           href="#home"
-          onClick={(e) => { e.preventDefault(); handleNavClick("#home", false); }}
+          onClick={(e) => { e.preventDefault(); handleNavClick("#home"); }}
           className="flex flex-col leading-none select-none"
           style={{ textDecoration: "none" }}
         >
@@ -76,9 +82,10 @@ export default function Navbar() {
               fontSize: "0.6rem",
               letterSpacing: "0.3em",
               textTransform: "uppercase",
-              color: "var(--crimson)",
+              color: onHero ? "rgba(247,232,216,0.7)" : "var(--crimson)",
               opacity: 0.7,
               lineHeight: 1,
+              transition: "color 400ms",
             }}
           >
             THE
@@ -87,9 +94,10 @@ export default function Navbar() {
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "1.7rem",
-              color: "var(--crimson)",
+              color: onHero ? "var(--cream)" : "var(--crimson)",
               letterSpacing: "0.06em",
               lineHeight: 1,
+              transition: "color 400ms",
             }}
           >
             BRAND
@@ -98,9 +106,10 @@ export default function Navbar() {
             style={{
               display: "block",
               height: "2px",
-              background: "var(--crimson)",
+              background: onHero ? "var(--cream)" : "var(--crimson)",
               width: "100%",
               marginTop: "2px",
+              transition: "background 400ms",
             }}
           />
         </a>
@@ -110,8 +119,8 @@ export default function Navbar() {
           {/* Cart */}
           <button
             ref={cartRef}
-            className="btn-outline-crimson"
-            style={{ padding: "0.4rem 0.75rem", gap: "0.4rem", willChange: "transform" }}
+            className={onHero ? "btn-outline-cream" : "btn-outline-crimson"}
+            style={{ padding: "0.4rem 0.75rem", gap: "0.4rem", willChange: "transform", transition: "color 400ms, border-color 400ms" }}
             aria-label="Open cart"
           >
             <ShoppingBag size={14} strokeWidth={1.5} />
@@ -120,12 +129,12 @@ export default function Navbar() {
             </span>
           </button>
 
-          {/* Flavours shortcut — triggers cinematic takeover */}
+          {/* Flavours shortcut */}
           <button
             ref={flavoursRef}
-            className="btn-outline-crimson hidden sm:inline-flex"
-            onClick={() => handleNavClick("#flavours", true)}
-            style={{ padding: "0.4rem 1rem", willChange: "transform" }}
+            className={`${onHero ? "btn-outline-cream" : "btn-outline-crimson"} hidden sm:inline-flex`}
+            onClick={() => handleNavClick("#flavours")}
+            style={{ padding: "0.4rem 1rem", willChange: "transform", transition: "color 400ms, border-color 400ms" }}
           >
             Flavours
           </button>
@@ -133,7 +142,7 @@ export default function Navbar() {
           {/* Menu trigger */}
           <button
             ref={menuRef}
-            className="btn-outline-crimson"
+            className={onHero ? "btn-outline-cream" : "btn-outline-crimson"}
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
             style={{ padding: "0.4rem 0.9rem", gap: "0.5rem", willChange: "transform" }}
@@ -199,11 +208,11 @@ export default function Navbar() {
             <li key={link.label} role="none">
               <button
                 role="menuitem"
-                onClick={() => handleNavClick(link.href, link.takeover)}
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(2.8rem, 8vw, 4.5rem)",
-                  color: link.takeover ? "var(--cream)" : "var(--cream)",
+                onClick={() => handleNavClick(link.href)}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(2.8rem, 8vw, 4.5rem)",
+                color: "var(--cream)",
                   lineHeight: 1.0,
                   letterSpacing: "0.04em",
                   background: "none",
@@ -230,21 +239,6 @@ export default function Navbar() {
                 }}
               >
                 {link.label.toUpperCase()}
-                {link.takeover && (
-                  <span
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "0.6rem",
-                      letterSpacing: "0.2em",
-                      textTransform: "uppercase",
-                      color: "rgba(247,232,216,0.5)",
-                      marginLeft: "1rem",
-                      verticalAlign: "middle",
-                    }}
-                  >
-                    ✦ EXPLORE
-                  </span>
-                )}
               </button>
             </li>
           ))}

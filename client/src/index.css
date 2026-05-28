@@ -87,7 +87,7 @@
   }
 
   body {
-    background-color: var(--cream);
+    background-color: transparent;
     color: var(--crimson);
     font-family: var(--font-body);
     font-size: 16px;
@@ -170,6 +170,32 @@
   /* ---- Display type utility ---- */
   .font-display {
     font-family: var(--font-display);
+  }
+
+  /* ---- Outlined cream button (used over dark/teal hero) ---- */
+  .btn-outline-cream {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1.5px solid rgba(247,232,216,0.7);
+    color: var(--cream);
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.25rem;
+    transition: background 180ms var(--ease-out), color 180ms var(--ease-out), transform 120ms, border-color 180ms;
+  }
+
+  .btn-outline-cream:hover {
+    background: rgba(247,232,216,0.15);
+    border-color: var(--cream);
+  }
+
+  .btn-outline-cream:active {
+    transform: scale(0.97);
   }
 
   /* ---- Outlined crimson button ---- */
@@ -318,14 +344,15 @@
 
   /* ---- Product card ---- */
   .product-card {
-    background: var(--cream-dark);
+    background: linear-gradient(160deg, #EDD8C0 0%, #E4CDB4 100%);
     overflow: hidden;
-    transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
+    transition: transform 280ms var(--ease-out), box-shadow 280ms var(--ease-out);
+    box-shadow: 0 4px 16px rgba(140, 26, 26, 0.06);
   }
 
   .product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 48px rgba(140, 26, 26, 0.18);
+    transform: translateY(-8px);
+    box-shadow: 0 24px 56px rgba(140, 26, 26, 0.22);
   }
 
   /* ---- Menu drawer overlay ---- */
@@ -429,6 +456,30 @@
     .cursor-ring {
       display: none;
     }
+  }
+
+  /* ---- Grain texture overlay on the scroll canvas ---- */
+  .scroll-canvas::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+  }
+
+  /* ---- Improved reveal — slide from bottom with slight scale ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 
   /* ---- Reduced motion ---- */

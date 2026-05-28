@@ -51,8 +51,9 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
 export default function StatsStrip() {
   return (
     <section
+      id="stats"
       style={{
-        background: "var(--cream-dark)",
+        background: "transparent",
         borderTop: "1px solid rgba(140,26,26,0.12)",
         borderBottom: "1px solid rgba(140,26,26,0.12)",
         padding: "3.5rem 0",

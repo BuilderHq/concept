@@ -1,16 +1,14 @@
 /* ============================================================
    AboutSection — Warm Organic Editorial
-   Left image with parallax depth (moves at 0.6x scroll speed)
-   Right text moves at normal speed — creates depth separation
-   Scroll-velocity skew on the whole section
+   Clean editorial split. Image parallax at 0.6x scroll speed.
+   One unified reveal — no stacked independent effects.
+   Background transparent — colour morph canvas shows through.
    ============================================================ */
 import { useEffect, useRef } from "react";
 import { useParallaxDepth } from "@/hooks/useParallaxDepth";
-import { useScrollSkew } from "@/hooks/useScrollSkew";
 import { useMagneticButton } from "@/hooks/useMagneticButton";
 
-const ABOUT_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482533871/jpQMoZHktxoMSn2wFqYJ4V/about-ingredients-QZUYhJbc6tyFqMsMuQSjKS.webp";
+const ABOUT_IMAGE = "/images/about-ingredients.jpg";
 
 function useReveal(threshold = 0.18) {
   const ref = useRef<HTMLDivElement>(null);
@@ -29,71 +27,34 @@ function useReveal(threshold = 0.18) {
   return ref;
 }
 
-function Cloud({ size = 80, opacity = 0.35 }: { size?: number; opacity?: number }) {
-  return (
-    <svg width={size} height={size * 0.6} viewBox="0 0 120 72" fill="none" style={{ opacity }}>
-      <ellipse cx="60" cy="52" rx="58" ry="20" fill="var(--crimson)" />
-      <ellipse cx="40" cy="44" rx="28" ry="22" fill="var(--crimson)" />
-      <ellipse cx="72" cy="38" rx="32" ry="26" fill="var(--crimson)" />
-      <ellipse cx="52" cy="32" rx="22" ry="20" fill="var(--crimson)" />
-    </svg>
-  );
-}
-
 export default function AboutSection() {
-  const headRef = useReveal();
-  const bodyRef = useReveal(0.12);
-  const imgRevealRef = useReveal(0.1);
-
-  // Parallax: image moves at 0.6x — slower than the page = depth
+  const sectionRef = useReveal(0.08);
   const imgParallaxRef = useParallaxDepth<HTMLDivElement>(0.6);
-
-  // Scroll-velocity skew on the section
-  const skewRef = useScrollSkew<HTMLElement>(3);
-
-  // Magnetic CTA
-  const ctaRef = useMagneticButton<HTMLAnchorElement>(0.35, 75);
+  const ctaRef = useMagneticButton<HTMLAnchorElement>(0.55, 110);
 
   return (
     <section
       id="about"
-      ref={skewRef}
       style={{
-        background: "var(--cream)",
-        padding: "8rem 0 6rem",
+        background: "transparent",
+        padding: "9rem 0 7rem",
         position: "relative",
         overflow: "hidden",
-        willChange: "transform",
       }}
     >
-      {/* Floating decorative clouds */}
-      <div style={{ position: "absolute", top: "6%", right: "8%", pointerEvents: "none" }}>
-        <Cloud size={60} opacity={0.18} />
-      </div>
-      <div style={{ position: "absolute", top: "22%", right: "18%", pointerEvents: "none" }}>
-        <Cloud size={100} opacity={0.12} />
-      </div>
-      <div style={{ position: "absolute", bottom: "12%", left: "5%", pointerEvents: "none" }}>
-        <Cloud size={80} opacity={0.14} />
-      </div>
-
       <div className="container">
         <div
+          ref={sectionRef}
+          className="reveal about-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1.4fr",
-            gap: "3rem",
+            gap: "clamp(2rem, 5vw, 5rem)",
             alignItems: "start",
           }}
-          className="about-grid"
         >
-          {/* Image — parallax depth layer */}
-          <div
-            ref={imgRevealRef}
-            className="reveal"
-            style={{ position: "relative", overflow: "hidden" }}
-          >
-            {/* Inner wrapper gets the parallax transform */}
+          {/* Left — image with parallax depth */}
+          <div style={{ position: "relative", overflow: "hidden" }}>
             <div
               ref={imgParallaxRef}
               style={{ willChange: "transform" }}
@@ -106,13 +67,13 @@ export default function AboutSection() {
                   aspectRatio: "3/4",
                   objectFit: "cover",
                   display: "block",
-                  // Scale up slightly so parallax offset doesn't reveal edges
                   transform: "scale(1.12)",
                   transformOrigin: "center center",
                 }}
               />
             </div>
-            {/* Label badge */}
+
+            {/* Crimson badge — bottom right of image */}
             <div
               style={{
                 position: "absolute",
@@ -132,79 +93,88 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Text — moves at normal scroll speed, creating depth vs image */}
+          {/* Right — editorial text column */}
           <div style={{ paddingTop: "1rem" }}>
-            <div ref={headRef} className="reveal" style={{ transitionDelay: "0.1s" }}>
-              <p className="section-label" style={{ marginBottom: "1rem" }}>
-                About the brand
-              </p>
-              <h2
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(3rem, 7vw, 6.5rem)",
-                  color: "var(--crimson)",
-                  lineHeight: 0.9,
-                  marginBottom: "2rem",
-                }}
-              >
-                THIS IS THE
-                <br />
-                BRAND.
-                <br />
-                HE'LL WIN
-                <br />
-                OVER EVEN
-                <br />
-                THE SCEPTICS.
-              </h2>
-            </div>
+            <p className="section-label" style={{ marginBottom: "1.25rem" }}>
+              About the brand
+            </p>
 
-            <div ref={bodyRef} className="reveal" style={{ transitionDelay: "0.2s" }}>
-              <h3
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "1rem",
-                  fontWeight: 600,
-                  color: "var(--crimson)",
-                  marginBottom: "1rem",
-                  lineHeight: 1.4,
-                }}
-              >
-                Those who've tried it already know. Those who haven't — get ready for a flavour that changes everything.
-              </h3>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.9rem",
-                  color: "var(--crimson)",
-                  opacity: 0.75,
-                  lineHeight: 1.75,
-                  marginBottom: "1.5rem",
-                }}
-              >
-                Our goal is not just a frozen treat. That would be too simple. We want you to feel something when you take that first bite. It is difficult to do, but we do it.
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.9rem",
-                  color: "var(--crimson)",
-                  opacity: 0.75,
-                  lineHeight: 1.75,
-                  marginBottom: "2.5rem",
-                }}
-              >
-                We source pistachios from a small farm in Sicily, Alfonso mangoes from India, and chocolate directly from Belgium. Every ingredient is chosen because it is the best — not because it is the easiest.
-              </p>
-              <a
-                ref={ctaRef}
-                href="#story"
-                className="btn-outline-crimson"
-                style={{ textDecoration: "none", display: "inline-flex", willChange: "transform" }}
-              >
-                Our Story
-              </a>
-            </div>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(3rem, 7vw, 6.5rem)",
+                color: "var(--crimson)",
+                lineHeight: 0.9,
+                marginBottom: "2.5rem",
+              }}
+            >
+              THIS IS THE
+              <br />
+              BRAND.
+              <br />
+              HE'LL WIN
+              <br />
+              OVER EVEN
+              <br />
+              THE SCEPTICS.
+            </h2>
+
+            <h3
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "1rem",
+                fontWeight: 600,
+                color: "var(--crimson)",
+                marginBottom: "1rem",
+                lineHeight: 1.5,
+              }}
+            >
+              Those who've tried it already know. Those who haven't — get ready.
+            </h3>
+
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "0.9rem",
+                color: "var(--crimson)",
+                opacity: 0.72,
+                lineHeight: 1.8,
+                marginBottom: "1.25rem",
+              }}
+            >
+              Our goal is not just a frozen treat. That would be too simple. We
+              want you to feel something when you take that first bite. It is
+              difficult to do, but we do it.
+            </p>
+
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "0.9rem",
+                color: "var(--crimson)",
+                opacity: 0.72,
+                lineHeight: 1.8,
+                marginBottom: "3rem",
+              }}
+            >
+              We source pistachios from a small farm in Sicily, Alphonso mangoes
+              from India, and chocolate directly from Belgium. Every ingredient
+              is chosen because it is the best — not because it is the easiest.
+            </p>
+
+            <a
+              ref={ctaRef}
+              href="#story"
+              className="btn-outline-crimson"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.querySelector("#story");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              style={{ textDecoration: "none", display: "inline-flex", willChange: "transform" }}
+            >
+              Our Story
+            </a>
           </div>
         </div>
       </div>

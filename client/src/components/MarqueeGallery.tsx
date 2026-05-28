@@ -1,18 +1,14 @@
 /* ============================================================
    MarqueeGallery — Warm Organic Editorial
-   4-column photo mosaic · spinning circular SVG badge
-   Curved text "AND WE ARE LAZY-FRIENDLY" arc
+   4-column photo mosaic with staggered reveals · spinning badge
+   Curved arc text · transparent background for colour morph
    ============================================================ */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const HERO_IMG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482533871/jpQMoZHktxoMSn2wFqYJ4V/hero-icecream-bhqnanCeVxKP9q5ne6Btww.webp";
-const LIFESTYLE_IMG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482533871/jpQMoZHktxoMSn2wFqYJ4V/lifestyle-orange-NaiUCsQL8zdqTaFwVBX5zp.webp";
-const ABOUT_IMG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482533871/jpQMoZHktxoMSn2wFqYJ4V/about-ingredients-QZUYhJbc6tyFqMsMuQSjKS.webp";
-const CAFE_IMG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482533871/jpQMoZHktxoMSn2wFqYJ4V/partnership-cafe-4xYRQNxnwWL9dn92GcHqEE.webp";
+const HERO_IMG = "/images/hero-icecream.jpg";
+const LIFESTYLE_IMG = "/images/lifestyle-orange.jpg";
+const ABOUT_IMG = "/images/about-ingredients.jpg";
+const CAFE_IMG = "/images/partnership-cafe.jpg";
 
 const MOSAIC_IMAGES = [
   { src: LIFESTYLE_IMG, alt: "Person in orange sweater holding popsicle", objectPos: "center top" },
@@ -21,10 +17,60 @@ const MOSAIC_IMAGES = [
   { src: ABOUT_IMG, alt: "Colourful artisan popsicles flat lay", objectPos: "center" },
 ];
 
+function MosaicCell({ img, index }: { img: typeof MOSAIC_IMAGES[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setVisible(true), index * 90);
+          obs.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [index]);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        aspectRatio: "3/4",
+        overflow: "hidden",
+        position: "relative",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0) scale(1)" : "translateY(32px) scale(0.97)",
+        transition: `opacity 0.75s cubic-bezier(0.23,1,0.32,1) ${index * 0.09}s,
+                     transform 0.75s cubic-bezier(0.23,1,0.32,1) ${index * 0.09}s`,
+      }}
+    >
+      <img
+        src={img.src}
+        alt={img.alt}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: img.objectPos,
+          display: "block",
+          transition: "transform 600ms cubic-bezier(0.23,1,0.32,1)",
+        }}
+        onMouseEnter={(e) => ((e.currentTarget as HTMLImageElement).style.transform = "scale(1.06)")}
+        onMouseLeave={(e) => ((e.currentTarget as HTMLImageElement).style.transform = "scale(1)")}
+      />
+    </div>
+  );
+}
+
 function SpinningBadge() {
   const TEXT = "DELIVERY AVAILABLE · ORDER ONLINE · GIFT BOXES · ";
   const RADIUS = 52;
-  const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
   return (
     <div
@@ -37,7 +83,6 @@ function SpinningBadge() {
         justifyContent: "center",
       }}
     >
-      {/* Spinning outer ring with text */}
       <svg
         width="130"
         height="130"
@@ -65,8 +110,6 @@ function SpinningBadge() {
           </textPath>
         </text>
       </svg>
-
-      {/* Static centre dot */}
       <div
         style={{
           width: "12px",
@@ -95,44 +138,20 @@ function useReveal(threshold = 0.15) {
 }
 
 export default function MarqueeGallery() {
-  const mosaicRef = useReveal(0.08);
   const badgeRef = useReveal(0.1);
 
   return (
     <section
       id="gallery"
-      style={{ background: "var(--cream)", paddingBottom: "6rem", overflow: "hidden" }}
+      style={{ background: "transparent", paddingBottom: "6rem", overflow: "hidden" }}
     >
-      {/* ── 4-column mosaic ── */}
+      {/* ── 4-column staggered mosaic ── */}
       <div
-        ref={mosaicRef}
-        className="reveal mosaic-strip"
+        className="mosaic-strip"
         style={{ marginBottom: "5rem" }}
       >
         {MOSAIC_IMAGES.map((img, i) => (
-          <div
-            key={i}
-            style={{
-              aspectRatio: "3/4",
-              overflow: "hidden",
-              position: "relative",
-            }}
-          >
-            <img
-              src={img.src}
-              alt={img.alt}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: img.objectPos,
-                display: "block",
-                transition: "transform 600ms var(--ease-out)",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLImageElement).style.transform = "scale(1.05)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLImageElement).style.transform = "scale(1)")}
-            />
-          </div>
+          <MosaicCell key={i} img={img} index={i} />
         ))}
       </div>
 
@@ -156,7 +175,7 @@ export default function MarqueeGallery() {
               width: "min(600px, 90vw)",
               overflow: "visible",
             }}
-            aria-label="And we are delivery-friendly"
+            aria-label="And we deliver"
           >
             <defs>
               <path
@@ -164,7 +183,6 @@ export default function MarqueeGallery() {
                 d="M 30,160 Q 300,-40 570,160"
               />
             </defs>
-            {/* Decorative arc fill */}
             <path
               d="M 30,160 Q 300,-40 570,160 Q 300,80 30,160 Z"
               fill="var(--mint)"

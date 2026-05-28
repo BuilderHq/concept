@@ -8,12 +8,11 @@ import { useEffect, useRef } from "react";
 import { useParallaxDepth } from "@/hooks/useParallaxDepth";
 import { useScrollSkew } from "@/hooks/useScrollSkew";
 import { useMagneticButton } from "@/hooks/useMagneticButton";
+import NumeralReveal from "@/components/NumeralReveal";
 
-const LIFESTYLE_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482533871/jpQMoZHktxoMSn2wFqYJ4V/lifestyle-orange-NaiUCsQL8zdqTaFwVBX5zp.webp";
+const LIFESTYLE_IMAGE = "/images/lifestyle-orange.jpg";
 
-const ABOUT_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482533871/jpQMoZHktxoMSn2wFqYJ4V/about-ingredients-QZUYhJbc6tyFqMsMuQSjKS.webp";
+const ABOUT_IMAGE = "/images/about-ingredients.jpg";
 
 function usePathReveal() {
   const ref = useRef<SVGPathElement>(null);
@@ -49,23 +48,6 @@ function useReveal(threshold = 0.18) {
   return ref;
 }
 
-function Numeral3D({ n }: { n: string }) {
-  return (
-    <span
-      className="numeral-3d"
-      style={{
-        fontFamily: "var(--font-display)",
-        fontSize: "clamp(6rem, 14vw, 11rem)",
-        lineHeight: 1,
-        display: "inline-block",
-        userSelect: "none",
-      }}
-    >
-      {n}
-    </span>
-  );
-}
-
 export default function StorySection() {
   const path1Ref = usePathReveal();
   const path2Ref = usePathReveal();
@@ -87,7 +69,7 @@ export default function StorySection() {
       id="story"
       ref={skewRef}
       style={{
-        background: "var(--cream)",
+        background: "transparent",
         padding: "4rem 0 8rem",
         position: "relative",
         overflow: "hidden",
@@ -166,8 +148,8 @@ export default function StorySection() {
 
           {/* Text + numeral — moves at normal speed */}
           <div>
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "1.5rem", marginBottom: "1.5rem" }}>
-              <Numeral3D n="01" />
+            <div style={{ marginBottom: "1.5rem" }}>
+              <NumeralReveal numeral="01" size="clamp(5rem, 12vw, 9rem)" />
             </div>
             <h2
               style={{
@@ -213,8 +195,8 @@ export default function StorySection() {
         >
           {/* Text + numeral */}
           <div>
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "1.5rem", marginBottom: "1.5rem" }}>
-              <Numeral3D n="02" />
+            <div style={{ marginBottom: "1.5rem" }}>
+              <NumeralReveal numeral="02" size="clamp(5rem, 12vw, 9rem)" />
             </div>
             <h2
               style={{

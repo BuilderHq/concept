@@ -5,9 +5,9 @@
    ============================================================ */
 import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
+import WordDrop from "@/components/WordDrop";
 
-const CAFE_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482533871/jpQMoZHktxoMSn2wFqYJ4V/partnership-cafe-4xYRQNxnwWL9dn92GcHqEE.webp";
+const CAFE_IMAGE = "/images/partnership-cafe.jpg";
 
 function useReveal(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,9 +49,9 @@ export default function PartnershipSection() {
 
   return (
     <section
-      id="stockists"
+      id="partnership"
       style={{
-        background: "var(--cream)",
+        background: "transparent",
         padding: "6rem 0 8rem",
         position: "relative",
         overflow: "hidden",
@@ -88,19 +88,11 @@ export default function PartnershipSection() {
                 "linear-gradient(to top, rgba(247,232,216,0.95) 0%, rgba(247,232,216,0.6) 60%, transparent 100%)",
             }}
           >
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(3rem, 8vw, 7rem)",
-                color: "var(--crimson)",
-                lineHeight: 0.88,
-                margin: 0,
-              }}
-            >
-              WE LOVE
-              <br />
-              PARTNERSHIP
-            </h2>
+            <WordDrop
+              lines={["WE LOVE", "PARTNERSHIP"]}
+              colour="var(--crimson)"
+              fontSize="clamp(3rem, 8vw, 7rem)"
+            />
           </div>
         </div>
 
@@ -213,9 +205,14 @@ export default function PartnershipSection() {
             <ArrowRight size={14} strokeWidth={1.5} />
           </a>
           <a
-            href="#stockists"
+            href="#contact"
             className="btn-outline-crimson"
             style={{ textDecoration: "none", padding: "0.85rem 2rem" }}
+            onClick={(e) => {
+              e.preventDefault();
+              const el = document.querySelector("#contact");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
           >
             Where to Buy?
           </a>

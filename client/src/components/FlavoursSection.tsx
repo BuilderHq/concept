@@ -21,8 +21,7 @@ const PRODUCTS = [
   { id: 8, name: "Lemon Cheesecake",    weight: "80g", price: "$9.00", tag: "New",        colour: "#f0e890" },
 ];
 
-const PRODUCT_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482533871/jpQMoZHktxoMSn2wFqYJ4V/about-ingredients-QZUYhJbc6tyFqMsMuQSjKS.webp";
+const PRODUCT_IMAGE = "/images/hero-icecream.jpg";
 
 function useReveal(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
@@ -80,14 +79,24 @@ function ProductCard({ product, index }: { product: typeof PRODUCTS[0]; index: n
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center",
-            mixBlendMode: "multiply",
-            opacity: 0.85,
-            transition: "transform 400ms var(--ease-out)",
+            objectPosition: "center top",
+            opacity: 0.92,
+            transition: "transform 500ms var(--ease-out)",
             pointerEvents: "none",
           }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLImageElement).style.transform = "scale(1.06)")}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLImageElement).style.transform = "scale(1.07)")}
           onMouseLeave={(e) => ((e.currentTarget as HTMLImageElement).style.transform = "scale(1)")}
+        />
+        {/* Colour tint overlay — each card gets its own identity */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: product.colour,
+            opacity: 0.22,
+            mixBlendMode: "multiply",
+            pointerEvents: "none",
+          }}
         />
         {product.tag && (
           <div
@@ -276,7 +285,7 @@ export default function FlavoursSection() {
     <section
       id="flavours"
       style={{
-        background: "var(--cream)",
+        background: "transparent",
         padding: "6rem 0 8rem",
         position: "relative",
         overflow: "hidden",
