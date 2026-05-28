@@ -5,7 +5,7 @@
    ============================================================ */
 import { createContext, useContext, useEffect, useRef, useState, ReactNode } from "react";
 
-export type StoryColour = "cream" | "teal" | "crimson" | "cream-dark";
+export type StoryColour = "cream" | "dark" | "crimson" | "cream-dark";
 
 interface ScrollStoryState {
   scrollY: number;
@@ -39,7 +39,7 @@ export function ScrollStoryProvider({ children }: { children: ReactNode }) {
 
     const getActiveSection = (y: number): { section: string; colour: StoryColour } => {
       const sections = [
-        { id: "home",        colour: "teal"   as StoryColour },
+        { id: "home",        colour: "dark"   as StoryColour },
         { id: "about",       colour: "cream"  as StoryColour },
         { id: "stats",       colour: "cream"  as StoryColour },
         { id: "flavours",    colour: "cream"  as StoryColour },
@@ -59,7 +59,7 @@ export function ScrollStoryProvider({ children }: { children: ReactNode }) {
           }
         }
       }
-      return { section: "home", colour: "teal" };
+      return { section: "home", colour: "dark" };
     };
 
     const onScroll = () => {
