@@ -63,20 +63,10 @@ export default function HeadlineStamp() {
   const [bodyVisible, setBodyVisible] = useState(false);
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          setTimeout(() => setBodyVisible(true), 600);
-          obs.unobserve(el);
-        }
-      },
-      { threshold: 0.2 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    // Fire on page load — short delay lets the hero image paint first
+    const t1 = setTimeout(() => setVisible(true), 200);
+    const t2 = setTimeout(() => setBodyVisible(true), 950);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
   return (
