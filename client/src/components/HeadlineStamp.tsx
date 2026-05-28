@@ -27,7 +27,7 @@ function SplitText({
       style={{
         fontFamily: "var(--font-display)",
         fontSize: size,
-        color: "var(--crimson)",
+        color: "var(--cream)",
         lineHeight: 0.9,
         display: "flex",
         flexWrap: "wrap",
@@ -93,7 +93,7 @@ export default function HeadlineStamp() {
         style={{
           width: visible ? "4rem" : "0",
           height: "2px",
-          background: "var(--crimson)",
+          background: "var(--cream)",
           marginBottom: "2.5rem",
           transition: "width 0.8s cubic-bezier(0.23,1,0.32,1) 0.1s",
           opacity: 0.4,
@@ -123,7 +123,7 @@ export default function HeadlineStamp() {
           style={{
             fontFamily: "var(--font-body)",
             fontSize: "clamp(0.85rem, 1.4vw, 1rem)",
-            color: "var(--crimson)",
+            color: "var(--cream)",
             opacity: 0.7,
             lineHeight: 1.75,
             margin: 0,
@@ -137,7 +137,7 @@ export default function HeadlineStamp() {
           style={{
             fontFamily: "var(--font-body)",
             fontSize: "clamp(0.85rem, 1.4vw, 1rem)",
-            color: "var(--crimson)",
+            color: "var(--cream)",
             opacity: 0.7,
             lineHeight: 1.75,
             margin: 0,

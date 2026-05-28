@@ -58,7 +58,6 @@ function IngredientCard({ label, src, position, delay, visible }: CardProps) {
 
   return (
     <div
-      className="ingredient-card"
       style={{
         position: "absolute",
         top: position.top,
@@ -139,7 +138,7 @@ export default function IngredientStillLife() {
         padding: "6rem 2rem",
       }}
     >
-      {/* Subtle crimson glow circle — depth accent */}
+      {/* Subtle teal circle — depth accent */}
       <div
         aria-hidden="true"
         style={{
@@ -150,9 +149,9 @@ export default function IngredientStillLife() {
           width: "min(60vw, 500px)",
           height: "min(60vw, 500px)",
           borderRadius: "50%",
-          background: "var(--crimson)",
-          opacity: 0.45,
-          filter: "blur(80px)",
+          background: "var(--mint)",
+          opacity: 0.22,
+          filter: "blur(60px)",
           pointerEvents: "none",
         }}
       />

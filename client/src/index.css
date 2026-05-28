@@ -1,7 +1,7 @@
 /* ============================================================
    DESIGN SYSTEM — Warm Organic Editorial
    Movement: Mid-century food editorial meets contemporary web
-   Palette: Warm cream #F7E8D8 · Deep crimson #8C1A1A · Cream dark #EDD8C0
+   Palette: Warm cream #F7E8D8 · Deep crimson #8C1A1A · Mint #C8E8E0
    Display: Bebas Neue (condensed, all-caps)
    Body: DM Sans (clean, geometric)
    ============================================================ */
@@ -43,8 +43,8 @@
   --crimson: #8C1A1A;
   --crimson-bright: #C41E3A;
   --crimson-light: rgba(140, 26, 26, 0.08);
-  --cream-accent: #EDD8C0;
-  --cream-accent-dark: #D8C8B0;
+  --mint: #C8E8E0;
+  --mint-dark: #A8D4CA;
 
   /* Semantic tokens */
   --background: #F7E8D8;
@@ -59,7 +59,7 @@
   --secondary-foreground: #8C1A1A;
   --muted: #EDD8C0;
   --muted-foreground: rgba(140, 26, 26, 0.55);
-  --accent: #EDD8C0;
+  --accent: #C8E8E0;
   --accent-foreground: #8C1A1A;
   --destructive: #C41E3A;
   --border: rgba(140, 26, 26, 0.25);
@@ -172,7 +172,7 @@
     font-family: var(--font-display);
   }
 
-  /* ---- Outlined cream button (used over dark hero) ---- */
+  /* ---- Outlined cream button (used over dark/teal hero) ---- */
   .btn-outline-cream {
     display: inline-flex;
     align-items: center;
@@ -458,6 +458,90 @@
     }
   }
 
+  /* ---- Grain texture overlay on the scroll canvas ---- */
+  .scroll-canvas::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+  }
+
+  /* ---- Improved reveal — slide from bottom with slight scale ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* ---- Reduced motion ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .spin-slow {
+      animation: none;
+    }
+    .reveal,
+    .reveal-stagger > * {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .path-animate {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+
+  /* ---- Grain texture overlay on the scroll canvas ---- */
+  .scroll-canvas::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+  }
+
+  /* ---- Improved reveal — slide from bottom with slight scale ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* ---- Reduced motion ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .spin-slow {
+      animation: none;
+    }
+    .reveal,
+    .reveal-stagger > * {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .path-animate {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+
   /* ============================================================
      MOBILE RESPONSIVENESS — comprehensive overrides for ≤768px
      ============================================================ */
@@ -465,31 +549,21 @@
     /* ---- Hero ---- */
     #home {
       min-height: 100svh !important;
-      background: #1A0A0A !important;
     }
     /* Reduce oversized headline on mobile */
     #home .hero-headline {
       font-size: clamp(3.5rem, 18vw, 6rem) !important;
       line-height: 0.9 !important;
     }
-    /* On mobile: stack headline top, copy bottom — no overlap */
+    /* Move right-side copy below the headline on mobile */
     #home .hero-copy {
       position: absolute !important;
       top: auto !important;
-      bottom: 8% !important;
+      bottom: 14% !important;
       right: auto !important;
-      left: 1.25rem !important;
+      left: clamp(1.5rem, 4vw, 4rem) !important;
       transform: none !important;
-      max-width: calc(100vw - 2.5rem) !important;
-    }
-    /* Hide the paragraph text on mobile — just show the CTA */
-    #home .hero-copy > p {
-      display: none !important;
-    }
-    /* Push headline to top-left on mobile, away from copy */
-    .hero-headline-wrapper {
-      bottom: auto !important;
-      top: 18% !important;
+      max-width: calc(100vw - 3rem) !important;
     }
 
     /* ---- HeadlineStamp body copy ---- */
@@ -625,54 +699,5 @@
     .mosaic-strip {
       grid-template-columns: repeat(2, 1fr) !important;
     }
-    /* ---- Footer social links wrap ---- */
-    #contact footer,
-    #contact [style*='justify-content: space-between'] {
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      gap: 1rem !important;
-    }
-  }
-
-  /* ---- Grain texture overlay on the scroll canvas ---- */
-  .scroll-canvas::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9998;
-    opacity: 0.035;
-    mix-blend-mode: multiply;
-  }
-
-  /* ---- Improved reveal — slide from bottom with slight scale ---- */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px) scale(0.98);
-    transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
-  /* ---- Reduced motion ---- */
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track,
-    .spin-slow {
-      animation: none;
-    }
-    .reveal,
-    .reveal-stagger > * {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-    .path-animate {
-      stroke-dashoffset: 0;
-      transition: none;
-    }
-  }
+}
 }

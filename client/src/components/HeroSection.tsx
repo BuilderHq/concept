@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useMagneticButton } from "@/hooks/useMagneticButton";
 
-const HERO_IMG_URL = "/images/hero-tall-v2.jpg";
+const HERO_IMG_URL = "/images/hero-crimson-v1.jpg";
 
 export default function HeroSection() {
   const scrollBtnRef = useMagneticButton<HTMLButtonElement>(0.72, 140);
@@ -47,8 +47,7 @@ export default function HeroSection() {
 
       // Image parallax — moves at 0.45x scroll speed (slower = more depth)
       if (imgRef.current) {
-        // Parallax: move UP as we scroll down (negative = image moves up, showing more of the bottom)
-        imgRef.current.style.transform = `translateY(${-y * 0.15}px) scale(1.08)`;
+        imgRef.current.style.transform = `translateY(${y * 0.28}px) scale(1.08)`;
       }
 
       // Progressive word reveal based on scroll position
@@ -107,7 +106,7 @@ export default function HeroSection() {
         height: "100svh",
         minHeight: "600px",
         overflow: "hidden",
-        background: "#1A0A0A",
+        background: "#1a4a42",
       }}
     >
       {/* Cinematic background photograph — parallax pinned */}
@@ -121,7 +120,7 @@ export default function HeroSection() {
           width: "100%",
           height: "115%",
           objectFit: "cover",
-          objectPosition: "center 80%",
+          objectPosition: "center 30%",
           willChange: "transform",
           transformOrigin: "center top",
         }}
@@ -134,7 +133,7 @@ export default function HeroSection() {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(105deg, rgba(26,10,10,0.72) 0%, rgba(26,10,10,0.38) 45%, rgba(26,10,10,0.08) 100%)",
+            "linear-gradient(105deg, rgba(10,30,26,0.72) 0%, rgba(10,30,26,0.38) 45%, rgba(10,30,26,0.08) 100%)",
           zIndex: 1,
         }}
       />
@@ -147,7 +146,7 @@ export default function HeroSection() {
           left: 0,
           right: 0,
           height: "35%",
-          background: "linear-gradient(to top, rgba(26,10,10,0.55) 0%, transparent 100%)",
+          background: "linear-gradient(to top, rgba(10,30,26,0.55) 0%, transparent 100%)",
           zIndex: 1,
         }}
       />
@@ -155,9 +154,8 @@ export default function HeroSection() {
       {/* Skew wrapper */}
       <div ref={skewRef} style={{ position: "absolute", inset: 0, zIndex: 2, willChange: "transform" }}>
 
-        {/* Oversized headline — bottom-left on desktop, top-left on mobile */}
+        {/* Oversized headline — bottom-left, progressive reveal */}
         <div
-          className="hero-headline-wrapper"
           style={{
             position: "absolute",
             bottom: "12%",
@@ -174,8 +172,7 @@ export default function HeroSection() {
             <div
               key={word}
               ref={ref}
-              className="hero-headline"
-            style={{
+              style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(5rem, 16vw, 14rem)",
                 color: "#fff",
@@ -191,7 +188,6 @@ export default function HeroSection() {
 
         {/* Narrative paragraph + circular CTA — mid-right */}
         <div
-          className="hero-copy"
           style={{
             position: "absolute",
             top: "50%",
@@ -289,7 +285,7 @@ export default function HeroSection() {
           left: 0,
           right: 0,
           height: "36px",
-        background: "rgba(26,10,10,0.55)",
+        background: "rgba(10,30,26,0.55)",
         backdropFilter: "blur(4px)",
         overflow: "hidden",
         display: "flex",

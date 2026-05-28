@@ -20,7 +20,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartCount] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const [onHero, setOnHero] = useState(true); // true = over dark hero
+  const [onHero, setOnHero] = useState(true); // true = over teal hero
   const cartRef = useMagneticButton<HTMLButtonElement>(0.72, 120);
   const flavoursRef = useMagneticButton<HTMLButtonElement>(0.72, 120);
   const menuRef = useMagneticButton<HTMLButtonElement>(0.72, 120);
@@ -62,7 +62,7 @@ export default function Navbar() {
           height: "64px",
           background: scrolled
             ? onHero
-              ? "rgba(26,10,10,0.82)"
+              ? "rgba(20,58,50,0.82)"
               : "rgba(247,232,216,0.92)"
             : "transparent",
           backdropFilter: scrolled ? "blur(10px)" : "none",
@@ -132,7 +132,7 @@ export default function Navbar() {
           {/* Flavours shortcut */}
           <button
             ref={flavoursRef}
-            className={`${onHero ? "btn-outline-cream" : "btn-outline-crimson"} hidden sm:inline-flex nav-flavours-btn`}
+            className={`${onHero ? "btn-outline-cream" : "btn-outline-crimson"} hidden sm:inline-flex`}
             onClick={() => handleNavClick("#flavours")}
             style={{ padding: "0.4rem 1rem", willChange: "transform", transition: "color 400ms, border-color 400ms" }}
           >
