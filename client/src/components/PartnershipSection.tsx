@@ -28,7 +28,7 @@ const STEPS = [
   {
     num: "01",
     title: "WE HAVE SEVERAL CONDITIONS",
-    body: "We are open to partnership, but we always visit the location first to see if it is a good fit. No offence intended — sometimes it is just not a match.",
+    body: "We are open to partnership, but we always visit the location first to see if it is a good fit. No offence intended. Sometimes it is just not a match.",
   },
   {
     num: "02",
@@ -119,7 +119,7 @@ export default function PartnershipSection() {
               margin: 0,
             }}
           >
-            Picture this: your venue — whether it is a city café, a deli, a bar, or a boutique — already has everything. Almost. It is possible that the one thing missing is us. And that can be fixed.
+            Picture this: your venue, whether it is a city café, a deli, a bar, or a boutique, already has everything. Almost. It is possible that the one thing missing is us. And that can be fixed.
           </p>
           <p
             style={{

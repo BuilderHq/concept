@@ -666,9 +666,9 @@
       padding-bottom: 3.5rem !important;
     }
 
-    /* ---- HeadlineStamp large text ---- */
+    /* ---- HeadlineStamp large text — must fit on one line per word ---- */
     .headline-stamp h2 {
-      font-size: clamp(3rem, 16vw, 6rem) !important;
+      font-size: clamp(2.5rem, 13vw, 6rem) !important;
     }
 
     /* ---- Flavours section header ---- */
@@ -682,10 +682,16 @@
       padding-right: 1.25rem !important;
     }
 
-    /* ---- Reduce section vertical padding ---- */
-    section {
+    /* ---- Reduce section vertical padding (exclude hero) ---- */
+    section:not(#home) {
       padding-top: 3.5rem !important;
       padding-bottom: 3.5rem !important;
+    }
+    /* Hero section: zero padding, full bleed on mobile */
+    #home {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-top: 0 !important;
     }
 
     /* ---- Navbar: hide Flavours shortcut on mobile ---- */

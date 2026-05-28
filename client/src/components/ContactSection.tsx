@@ -28,7 +28,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Do you offer gift boxes?",
-    a: "Yes — we offer curated gift boxes in several sizes. You can choose a pre-selected mix or build your own selection. All boxes come in our branded packaging and can include a personalised card.",
+    a: "Yes, we offer curated gift boxes in several sizes. You can choose a pre-selected mix or build your own selection. All boxes come in our branded packaging and can include a personalised card.",
   },
   {
     q: "Are your products suitable for people with dietary restrictions?",
@@ -370,7 +370,7 @@ export default function ContactSection() {
                 marginTop: "0.2rem",
               }}
             >
-              © {new Date().getFullYear()} — All rights reserved
+              © {new Date().getFullYear()} All rights reserved
             </span>
           </div>
 

@@ -129,7 +129,7 @@ export default function AboutSection() {
                 lineHeight: 1.5,
               }}
             >
-              Those who've tried it already know. Those who haven't — get ready.
+              Those who have tried it already know. Those who have not, get ready.
             </h3>
 
             <p
@@ -142,9 +142,7 @@ export default function AboutSection() {
                 marginBottom: "1.25rem",
               }}
             >
-              Our goal is not just a frozen treat. That would be too simple. We
-              want you to feel something when you take that first bite. It is
-              difficult to do, but we do it.
+              Our goal is not just a frozen treat. We want you to feel something when you take that first bite. It is difficult to do, but we do it.
             </p>
 
             <p
@@ -157,9 +155,7 @@ export default function AboutSection() {
                 marginBottom: "3rem",
               }}
             >
-              We source pistachios from a small farm in Sicily, Alphonso mangoes
-              from India, and chocolate directly from Belgium. Every ingredient
-              is chosen because it is the best — not because it is the easiest.
+              We source pistachios from a small farm in Sicily, Alphonso mangoes from India, and chocolate directly from Belgium. Every ingredient is chosen because it is the best, not because it is the easiest.
             </p>
 
             <a

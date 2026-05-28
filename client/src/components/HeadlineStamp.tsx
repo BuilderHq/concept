@@ -30,8 +30,9 @@ function SplitText({
         color: "var(--cream)",
         lineHeight: 0.9,
         display: "flex",
-        flexWrap: "wrap",
+        flexWrap: "nowrap",
         overflow: "hidden",
+        whiteSpace: "nowrap",
       }}
     >
       {text.split("").map((char, i) => (
@@ -101,9 +102,9 @@ export default function HeadlineStamp() {
       />
 
       <div style={{ lineHeight: 0.9, marginBottom: "3rem" }}>
-        <SplitText text={LINE1} baseDelay={80}  visible={visible} size="clamp(4.5rem, 13vw, 11rem)" />
-        <SplitText text={LINE2} baseDelay={240} visible={visible} size="clamp(4.5rem, 13vw, 11rem)" />
-        <SplitText text={LINE3} baseDelay={360} visible={visible} size="clamp(4.5rem, 13vw, 11rem)" />
+        <SplitText text={LINE1} baseDelay={80}  visible={visible} size="clamp(2.6rem, 10vw, 11rem)" />
+        <SplitText text={LINE2} baseDelay={240} visible={visible} size="clamp(2.6rem, 10vw, 11rem)" />
+        <SplitText text={LINE3} baseDelay={360} visible={visible} size="clamp(2.6rem, 10vw, 11rem)" />
       </div>
 
       {/* Body copy — fades in after headline completes */}
@@ -129,9 +130,7 @@ export default function HeadlineStamp() {
             margin: 0,
           }}
         >
-          Not just another frozen treat. Every flavour is crafted from
-          single-origin ingredients — the kind that make you close your eyes
-          on the first bite.
+          Every flavour is crafted from single-origin ingredients. The kind that make you close your eyes on the first bite.
         </p>
         <p
           style={{
@@ -143,8 +142,7 @@ export default function HeadlineStamp() {
             margin: 0,
           }}
         >
-          We believe ice cream should feel like a moment — not just a product.
-          That's the standard we hold ourselves to, every single day.
+          We believe ice cream should feel like a moment. That is the standard we hold ourselves to, every single day.
         </p>
       </div>
     </div>
