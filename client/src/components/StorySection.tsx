@@ -184,7 +184,7 @@ export default function StorySection() {
         {/* ── Block 2: How it's made ── */}
         <div
           ref={block2Ref}
-          className="reveal story-block"
+          className="reveal story-block story-block-reverse"
           style={{
             display: "grid",
             gridTemplateColumns: "1.6fr 1fr",
@@ -257,7 +257,9 @@ export default function StorySection() {
 
       <style>{`
         @media (max-width: 768px) {
-          .story-block { grid-template-columns: 1fr !important; }
+          .story-block { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          .story-block-reverse > div:first-child { order: 2; }
+          .story-block-reverse > div:last-child { order: 1; }
         }
       `}</style>
     </section>

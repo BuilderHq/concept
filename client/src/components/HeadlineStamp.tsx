@@ -108,6 +108,7 @@ export default function HeadlineStamp() {
 
       {/* Body copy — fades in after headline completes */}
       <div
+        className="headline-body-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",

@@ -52,7 +52,7 @@ function ProductCard({ product, index }: { product: typeof PRODUCTS[0]; index: n
   return (
     <div
       ref={tiltRef}
-      className="product-card"
+      className="product-card product-card-wrapper"
       style={{
         display: "flex",
         flexDirection: "column",

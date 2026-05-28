@@ -47,7 +47,8 @@ export default function HeroSection() {
 
       // Image parallax — moves at 0.45x scroll speed (slower = more depth)
       if (imgRef.current) {
-        imgRef.current.style.transform = `translateY(${y * 0.28}px) scale(1.08)`;
+        // Parallax: move UP as we scroll down (negative = image moves up, showing more of the bottom)
+        imgRef.current.style.transform = `translateY(${-y * 0.15}px) scale(1.08)`;
       }
 
       // Progressive word reveal based on scroll position
@@ -120,7 +121,7 @@ export default function HeroSection() {
           width: "100%",
           height: "115%",
           objectFit: "cover",
-          objectPosition: "center top",
+          objectPosition: "center 80%",
           willChange: "transform",
           transformOrigin: "center top",
         }}
@@ -172,7 +173,8 @@ export default function HeroSection() {
             <div
               key={word}
               ref={ref}
-              style={{
+              className="hero-headline"
+            style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(5rem, 16vw, 14rem)",
                 color: "#fff",
@@ -188,6 +190,7 @@ export default function HeroSection() {
 
         {/* Narrative paragraph + circular CTA — mid-right */}
         <div
+          className="hero-copy"
           style={{
             position: "absolute",
             top: "50%",

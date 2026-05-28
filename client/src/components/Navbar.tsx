@@ -132,7 +132,7 @@ export default function Navbar() {
           {/* Flavours shortcut */}
           <button
             ref={flavoursRef}
-            className={`${onHero ? "btn-outline-cream" : "btn-outline-crimson"} hidden sm:inline-flex`}
+            className={`${onHero ? "btn-outline-cream" : "btn-outline-crimson"} hidden sm:inline-flex nav-flavours-btn`}
             onClick={() => handleNavClick("#flavours")}
             style={{ padding: "0.4rem 1rem", willChange: "transform", transition: "color 400ms, border-color 400ms" }}
           >

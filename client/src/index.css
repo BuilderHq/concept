@@ -458,6 +458,172 @@
     }
   }
 
+  /* ============================================================
+     MOBILE RESPONSIVENESS — comprehensive overrides for ≤768px
+     ============================================================ */
+  @media (max-width: 768px) {
+    /* ---- Hero ---- */
+    #home {
+      min-height: 100svh !important;
+    }
+    /* Reduce oversized headline on mobile */
+    #home .hero-headline {
+      font-size: clamp(3.5rem, 18vw, 6rem) !important;
+      line-height: 0.9 !important;
+    }
+    /* Move right-side copy below the headline on mobile */
+    #home .hero-copy {
+      position: absolute !important;
+      top: auto !important;
+      bottom: 14% !important;
+      right: auto !important;
+      left: clamp(1.5rem, 4vw, 4rem) !important;
+      transform: none !important;
+      max-width: calc(100vw - 3rem) !important;
+    }
+
+    /* ---- HeadlineStamp body copy ---- */
+    .headline-body-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1rem !important;
+    }
+
+    /* ---- About section ---- */
+    .about-grid {
+      grid-template-columns: 1fr !important;
+      gap: 2.5rem !important;
+    }
+
+    /* ---- Stats strip ---- */
+    #stats-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    #stats-grid > div {
+      border-right: none !important;
+      border-bottom: 1px solid rgba(140,26,26,0.12);
+      padding-bottom: 1.5rem;
+    }
+
+    /* ---- Flavours cards ---- */
+    .product-card-wrapper {
+      width: clamp(180px, 70vw, 260px) !important;
+    }
+
+    /* ---- Ingredient still-life — hide absolute cards on very small screens ---- */
+    .ingredient-card {
+      display: none !important;
+    }
+    #ingredients {
+      min-height: auto !important;
+      padding: 4rem 1.5rem !important;
+    }
+
+    /* ---- Story section ---- */
+    .story-block {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+    }
+    /* On mobile, always show image first then text */
+    .story-block-reverse > div:first-child {
+      order: 2;
+    }
+    .story-block-reverse > div:last-child {
+      order: 1;
+    }
+
+    /* ---- Gallery mosaic ---- */
+    .mosaic-strip {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* ---- Partnership section ---- */
+    #partner-intro {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+    }
+    #partner-steps {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+    }
+
+    /* ---- Contact section ---- */
+    #contact-grid {
+      grid-template-columns: 1fr !important;
+      gap: 3rem !important;
+    }
+
+    /* ---- General container padding ---- */
+    .container {
+      padding-left: 1.25rem !important;
+      padding-right: 1.25rem !important;
+    }
+
+    /* ---- Reduce section vertical padding ---- */
+    section {
+      padding-top: 4rem !important;
+      padding-bottom: 4rem !important;
+    }
+    /* Keep hero full height */
+    #home {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    /* Keep contact padding */
+    #contact {
+      padding-top: 5rem !important;
+      padding-bottom: 4rem !important;
+    }
+
+    /* ---- Navbar: hide Flavours shortcut on mobile ---- */
+    .nav-flavours-btn {
+      display: none !important;
+    }
+  }
+
+  /* Extra small screens */
+  @media (max-width: 480px) {
+    /* ---- Hero headline even smaller ---- */
+    #home .hero-headline {
+      font-size: clamp(3rem, 20vw, 5rem) !important;
+    }
+    /* ---- Flavours section header ---- */
+    #flavours h2 {
+      font-size: clamp(2.8rem, 14vw, 5rem) !important;
+    }
+    /* ---- Story headings ---- */
+    .story-block h2 {
+      font-size: clamp(2.2rem, 12vw, 4rem) !important;
+    }
+    /* ---- Contact heading ---- */
+    #contact h2 {
+      font-size: clamp(2.5rem, 14vw, 5rem) !important;
+    }
+    /* ---- Partnership heading ---- */
+    #partnership h2 {
+      font-size: clamp(2.5rem, 14vw, 5rem) !important;
+    }
+    /* ---- HeadlineStamp ---- */
+    .headline-stamp h2,
+    .headline-stamp div[style*='font-display'] {
+      font-size: clamp(3.5rem, 18vw, 7rem) !important;
+    }
+    /* ---- About heading ---- */
+    .about-grid h2 {
+      font-size: clamp(2.5rem, 13vw, 5rem) !important;
+    }
+    /* ---- Reduce mosaic to single column on tiny screens ---- */
+    .mosaic-strip {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    /* ---- Footer social links wrap ---- */
+    #contact footer,
+    #contact [style*='justify-content: space-between'] {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 1rem !important;
+    }
+  }
+
   /* ---- Grain texture overlay on the scroll canvas ---- */
   .scroll-canvas::before {
     content: '';

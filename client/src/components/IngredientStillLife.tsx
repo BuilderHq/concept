@@ -58,6 +58,7 @@ function IngredientCard({ label, src, position, delay, visible }: CardProps) {
 
   return (
     <div
+      className="ingredient-card"
       style={{
         position: "absolute",
         top: position.top,
