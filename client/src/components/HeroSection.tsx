@@ -107,7 +107,7 @@ export default function HeroSection() {
         height: "100svh",
         minHeight: "600px",
         overflow: "hidden",
-        background: "#1a4a42",
+        background: "#1A0A0A",
       }}
     >
       {/* Cinematic background photograph — parallax pinned */}
@@ -134,7 +134,7 @@ export default function HeroSection() {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(105deg, rgba(10,30,26,0.72) 0%, rgba(10,30,26,0.38) 45%, rgba(10,30,26,0.08) 100%)",
+            "linear-gradient(105deg, rgba(26,10,10,0.72) 0%, rgba(26,10,10,0.38) 45%, rgba(26,10,10,0.08) 100%)",
           zIndex: 1,
         }}
       />
@@ -147,7 +147,7 @@ export default function HeroSection() {
           left: 0,
           right: 0,
           height: "35%",
-          background: "linear-gradient(to top, rgba(10,30,26,0.55) 0%, transparent 100%)",
+          background: "linear-gradient(to top, rgba(26,10,10,0.55) 0%, transparent 100%)",
           zIndex: 1,
         }}
       />
@@ -289,7 +289,7 @@ export default function HeroSection() {
           left: 0,
           right: 0,
           height: "36px",
-        background: "rgba(10,30,26,0.55)",
+        background: "rgba(26,10,10,0.55)",
         backdropFilter: "blur(4px)",
         overflow: "hidden",
         display: "flex",

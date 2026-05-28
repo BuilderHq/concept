@@ -139,7 +139,7 @@ export default function IngredientStillLife() {
         padding: "6rem 2rem",
       }}
     >
-      {/* Subtle mint glow circle — depth accent */}
+      {/* Subtle crimson glow circle — depth accent */}
       <div
         aria-hidden="true"
         style={{
@@ -150,7 +150,7 @@ export default function IngredientStillLife() {
           width: "min(60vw, 500px)",
           height: "min(60vw, 500px)",
           borderRadius: "50%",
-          background: "var(--mint)",
+          background: "var(--crimson)",
           opacity: 0.45,
           filter: "blur(80px)",
           pointerEvents: "none",
