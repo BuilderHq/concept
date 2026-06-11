@@ -229,22 +229,27 @@ export default function FlavoursSection() {
     const el = trackRef.current;
     if (!el) return;
 
-    // Wheel → horizontal scroll with momentum feel
+    // Wheel → horizontal scroll
+    // Accepts both vertical (deltaY) and horizontal (deltaX) input.
+    // Only intercepts when the track has room to move — at the edges,
+    // the event falls through to the page naturally so scrolling past
+    // the section never feels sticky.
     const onWheel = (e: WheelEvent) => {
-      // Only hijack when section is in view and scroll is mostly horizontal intent
       const rect = el.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+      const inView = rect.top < window.innerHeight * 0.85 && rect.bottom > window.innerHeight * 0.15;
       if (!inView) return;
-
-      // If there's still horizontal scroll room, prevent vertical page scroll
       const max = el.scrollWidth - el.clientWidth;
-      const atStart = el.scrollLeft <= 0 && e.deltaY < 0;
-      const atEnd = el.scrollLeft >= max && e.deltaY > 0;
+      if (max <= 0) return;
+      // Use whichever axis carries more intent
+      const delta = Math.abs(e.deltaX) >= Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      const atStart = el.scrollLeft <= 1 && delta < 0;
+      const atEnd = el.scrollLeft >= max - 1 && delta > 0;
       if (!atStart && !atEnd) {
         e.preventDefault();
-        el.scrollLeft += e.deltaY * 1.2;
+        el.scrollLeft += delta * 0.9;
         updateProgress();
       }
+      // At the edges: let the event fall through to the page
     };
 
     // Pointer drag
